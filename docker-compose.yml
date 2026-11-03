@@ -1,0 +1,33 @@
+services:
+  agentic-rag-platform:
+    image: ${IMAGE:-ghcr.io/akash8787/agentic-rag-platform:latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 5000
+      UPLOAD_DIR: /app/storage/uploads
+      INDEX_DIR: /app/storage/indexes
+    ports:
+      - "${APP_PORT:-5000}:5000"
+    volumes:
+      - uploads:/app/storage/uploads
+      - indexes:/app/storage/indexes
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health', timeout=3)"
+      interval: 30s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+
+volumes:
+  uploads:
+  indexes:

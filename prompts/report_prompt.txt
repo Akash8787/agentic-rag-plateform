@@ -1,0 +1,8 @@
+Create a clear, structured report using only the supplied findings.
+Do not introduce facts that are not present in the findings.
+
+Findings:
+{findings}
+
+Report request:
+{request}

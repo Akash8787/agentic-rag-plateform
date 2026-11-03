@@ -1,0 +1,7 @@
+Analyze the supplied document content and respond with concise, evidence-based findings.
+
+Document content:
+{content}
+
+Analysis request:
+{question}
