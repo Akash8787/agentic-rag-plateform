@@ -22,7 +22,16 @@ jobs:
   test:
     name: Test agentic RAG platform
     runs-on: ubuntu-latest
+
     steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo docker system prune -af || true
+          df -h
+
       - name: Check out repository
         uses: actions/checkout@v4
 
@@ -30,15 +39,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.9"
-          cache: pip
-          cache-dependency-path: requirements.txt
+          cache: "pip"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          pip install --no-cache-dir -r requirements.txt
 
-      - name: Check Python syntax
+      - name: Compile Python files
         run: python -m compileall -q .
 
       - name: Run tests
