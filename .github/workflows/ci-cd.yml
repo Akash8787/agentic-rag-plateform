@@ -72,7 +72,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: aakash887/agentic-rag-platform
+          images: aakash887/agentic-rag-plateform
           tags: |
             type=raw,value=latest
             type=sha
